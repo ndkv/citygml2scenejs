@@ -1,0 +1,17 @@
+===============
+CityGML2SceneJS
+===============
+`CityGML <http://www.citygml.org>`_ is an information model for storing 3D city models. It's encoded in XML/GML hence difficult to interact with. CGML2SJS's goal is to free  from its XML shackles and let you explore it freely. Click on the link below and pan the map and wait a sec or two for the buildings to show up. There are (only) nine neighbourhoods on the map. Try to find them all! 
+
+**Warning!** Highly experimental. The app is a bit slow, especially when you zoom out. Optimizations are on the way. Till then, enjoy! 
+
+`Try it! <http://rotterdam.ndkv.nl/>`_
+--------------------------------------
+
+TO DO
+=====
+* expalin the rationale of doing this
+* get hold of the rest of the data
+* implement a faster geometry lookup mechanism
+* implement caching of geometries locally in JavaScript as well as on the server
+* implement SceneJS
