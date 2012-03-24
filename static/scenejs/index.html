@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<!--
+      SceneJS sample
+-->
+<head>
+    <meta charset='utf-8'>
+
+
+    <title>SceneJS sample</title>
+
+    <!-- Framework -->
+
+    <!--<script type='text/javascript' src='scenejs.min.js'></script>-->
+    <script type='text/javascript' src='scene/lib/scenejs.js'></script>
+
+</head>
+<body>
+    <div id='scenejsLog'></div>
+    <div id='content'>
+        <canvas id='scenejsCanvas' width='1030' height='700'>
+            <p>This application requires a browser that supports the<a href='http://www.w3.org/html/wg/html5/'>HTML5</a>&lt;canvas&gt; feature.</p>
+        </canvas>
+    </div>
+
+    <!-- Resources -->
+
+    <script type='text/javascript' src='collada.js'></script>
+    <script type='text/javascript'>
+        SceneJS.withNode('Scene').render();
+    </script>
+</body>
+</html>
