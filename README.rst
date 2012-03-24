@@ -7,7 +7,7 @@ The grand plan is to show the 3D geometries in your browser using WebGL. The sta
 
 Click on the link below, pan the map and wait a sec or two for the buildings to show up. There are (only) nine neighbourhoods on the map. Try to find them all! 
 
-**Warning!** Highly experimental. The app is a bit slow, especially when you zoom out. Optimizations are on the way. Till then, enjoy! 
+**Warning!** Highly experimental. The app is a bit slow, especially when you zoom out. Try not to do that. Instead, zoom in and enjoy the vector graphics! Optimizations are on the way. Till then, enjoy! 
 
 `Try it! <http://rotterdam.ndkv.nl/>`_
 --------------------------------------
