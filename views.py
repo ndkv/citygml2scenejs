@@ -1,7 +1,7 @@
 from django.http import HttpResponse
-from models import Geometry
-import json
 from django.contrib.gis.geos import Polygon
+import json
+from models import Geometry
 
 def get_geometry(request):
     sw_lat = request.GET['sw_lat']
@@ -10,10 +10,7 @@ def get_geometry(request):
     ne_lng = request.GET['ne_lng']
 
     bbox = Polygon.from_bbox((sw_lng, sw_lat, ne_lng, ne_lat))
-    print bbox
-    items = Geometry.objects.filter(geom__coveredby=bbox)
-    print len(items)
-#    items = Geometry.objects.all()
+    items = Geometry.objects.filter(geom__bboverlaps=bbox)
 
     geom_json = {}
     for item in items:

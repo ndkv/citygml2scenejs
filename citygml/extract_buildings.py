@@ -1,7 +1,6 @@
+import os
 import pyproj
 from lxml import etree
-import os
-
 
 class RDToWGS84:
     def __init__(self):
@@ -75,11 +74,10 @@ class CityGML:
 #
 #        coordinates.close()
         
-        return i
-        
 def main():
-    f_all = open('../data/all.sql', 'w')
-    dbase = 'cgml2sjs_geometry'
+    f_all = open('all.sql', 'w')
+#    dbase = 'cgml2sjs_geometry'
+    dbase = 'citygml2scenejs_geometry'
     i = 0
 
     for tile in os.listdir('./data'):
