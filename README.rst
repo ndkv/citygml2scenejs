@@ -9,7 +9,7 @@ Click on the link below, pan the map and wait a sec or two for the buildings to 
 
 **Warning!** Highly experimental. The app is a bit slow, especially when you zoom out. Try not to do that. Instead, zoom in and enjoy the vector graphics! Optimizations are on the way. Till then, enjoy! 
 
-`Try it! <http://rotterdam.ndkv.nl/>`_
+Try it! - temporarily not working, come back tomorrow
 --------------------------------------
 
 TO DO
