@@ -1,6 +1,6 @@
 var map;
 var server = "http://localhost:8000/";
-var loaded_geoms = []
+var loaded_geoms = [];
 
 $(document).ready(function () {
     initialize_map();
@@ -27,27 +27,27 @@ function initialize_map() {
 function get_geometry(bounds) {
     var sw = bounds.getSouthWest();
     var ne = bounds.getNorthEast();
+    var ids; 
 
-    console.log(sw);
-
-//    console.log(server+'get_geometry/');
-
-    $.get(server + 'get_geometry/', {"sw_lat": sw.lat(), "sw_lng": sw.lng(), "ne_lat": ne.lat(), "ne_lng": ne.lng()},  function(data) {
-        var parsed = $.parseJSON(data);
-
-        if (loaded_geoms.length !== 0) {
-            console.log("Removing geoms.. ");
-            $.each(loaded_geoms, function(index, geom) {
-               geom.setMap(null);
-            });
+    if (loaded_geoms.length === 0) {
+        ids = "None";
+    } else {
+        ids = loaded_geoms[0];
+        console.log(loaded_geoms.length)
+        for (var i=1; i < (loaded_geoms.length - 1); i++) {
+            ids = ids + ' ' +  loaded_geoms[i];
         }
+    }
 
-        $.each(parsed, function(index, tile) {
-            $.each(tile.coords, function(index, footprint){ 
-                loaded_geoms.push(draw_geometry(footprint));
-            })
+    console.log(ids)
 
-        });
+    $.get(server + 'get_geometry/', {"ids": ids, "sw_lat": sw.lat(), "sw_lng": sw.lng(), "ne_lat": ne.lat(), "ne_lng": ne.lng()},  function(data) {
+        
+        var parsed = $.parseJSON(data);
+        $.each(parsed, function(index, building) {
+                loaded_geoms.push(building[0]);
+                draw_geometry(building[1]);
+        })
     }).error(function(request, error) {
         if (request.status === 0) { console.log('Same origin policy?'); }
     });
