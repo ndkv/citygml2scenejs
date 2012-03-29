@@ -5,7 +5,6 @@ import json
 from models import Geometry
 
 def get_geometry(request):
-
     if request.method == 'POST':
         data = json.loads(request.POST['data'])
         print data
@@ -18,5 +17,5 @@ def get_geometry(request):
         geom_json.append([item.id, item.geom.coords])
 
     res = HttpResponse(json.dumps(geom_json), mimetype='application/json')
-    res.set_cookie('csrftoken', value=get_token(request))
+    res.set_cookie("csrftoken", value=get_token(request), httponly=False, secure=False)
     return res

@@ -3,9 +3,28 @@ var server = "http://localhost:8000/";
 var loaded_geoms = [];
 
 $(document).ready(function () {
+    set_up_ajax();
     initialize_map();
 
 });
+
+function initialize_map() {
+    var lat_lng = new google.maps.LatLng(51.9000284, 4.482482);
+    var options = {
+        zoom: 16,
+        center: lat_lng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        disableDoubleClickZoom: true
+    };
+
+    map = new google.maps.Map(document.getElementById("map_canvas"), options);
+    google.maps.event.addListener(map, 'dragend', function () {
+        get_geometry(map.getBounds());
+    });
+    google.maps.event.addListenerOnce(map, 'bounds_changed', function () {
+        get_geometry(map.getBounds());
+    });
+}
 
 function get_geometry(bounds) {
     var sw = bounds.getSouthWest();
@@ -56,23 +75,7 @@ function draw_geometry(footprint, id) {
     return geom;
 }
 
-function initialize_map() {
-    var lat_lng = new google.maps.LatLng(51.9000284, 4.482482);
-    var options = {
-        zoom: 16,
-        center: lat_lng,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        disableDoubleClickZoom: true
-    };
-
-    map = new google.maps.Map(document.getElementById("map_canvas"), options);
-    google.maps.event.addListener(map, 'dragend', function () {
-        get_geometry(map.getBounds());
-    });
-    google.maps.event.addListenerOnce(map, 'bounds_changed', function () {
-        get_geometry(map.getBounds());
-    });
-
+function set_up_ajax() {
     //django csrf
     $.ajaxSetup({
         beforeSend: function(xhr, settings) {
