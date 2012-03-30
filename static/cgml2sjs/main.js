@@ -32,8 +32,6 @@ function get_geometry(bounds) {
 
     data_send = JSON.stringify({'ids': loaded_geoms, "sw_lat": sw.lat(), "sw_lng": sw.lng(), "ne_lat": ne.lat(), "ne_lng": ne.lng()});
 
-    console.log(data_send);
-
     $.post(server + 'get_geometry/', {'data':data_send}, function(data) {
         $.each(data, function(index, building) {
             loaded_geoms.push(building[0]);

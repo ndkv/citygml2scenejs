@@ -9,13 +9,25 @@ Click on the link below, pan the map and wait a sec or two for the buildings to 
 
 **Warning!** Highly experimental. The app is a bit slow, especially when you zoom out. Try not to do that. Instead, zoom in and enjoy the vector graphics! Optimizations are on the way. Till then, enjoy! 
 
-Try it! - temporarily not working, come back tomorrow
+`Try it! <http://rotterdam.ndkv.nl>`_ 
 --------------------------------------
+
+Changelog
+=========
+**2012/3/30**
+
+* Clickable buildings
+* POST requests
+* Client tells server which geometries are already loaded
 
 TO DO
 =====
-* expalin the rationale of doing this
+* explain the rationale of doing this
+* get a simple API up and running
 * get hold of the rest of the data
-* implement a faster geometry lookup mechanism
-* implement caching of geometries locally in JavaScript as well as on the server
+* implement a smarter client side geometry requester
+* implement a faster server side geometry lookup mechanism
+* implement caching of geometries
+* implement geometry unloading when out of view
+* hide buildings when zoomed out 
 * implement SceneJS
