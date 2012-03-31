@@ -7,7 +7,6 @@ from models import Geometry
 def get_geometry(request):
     if request.method == 'POST':
         data = json.loads(request.POST['data'])
-        print data
 
     bbox = Polygon.from_bbox((data['sw_lng'], data['sw_lat'], data['ne_lng'], data['ne_lat']))
     items = Geometry.objects.filter(geom__bboverlaps=bbox).exclude(id__in=data['ids'])
