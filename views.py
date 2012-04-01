@@ -8,9 +8,7 @@ from django.template import RequestContext
 from django.core.context_processors import csrf
 
 def map(request):
-    c = {}
-    c.update(csrf(request))
-    return render_to_response('cgml2sjs/index.htm', c, context_instance=RequestContext(request))
+    return render_to_response('cgml2sjs/index.htm', csrf(request), context_instance=RequestContext(request))
 
 def get_geometry(request):
     if request.method == 'POST':
