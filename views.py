@@ -1,8 +1,16 @@
+from django.shortcuts import render_to_response
 from django.middleware.csrf import get_token
 from django.http import HttpResponse
 from django.contrib.gis.geos import Polygon
 import json
 from models import Geometry
+from django.template import RequestContext
+from django.core.context_processors import csrf
+
+def map(request):
+    c = {}
+    c.update(csrf(request))
+    return render_to_response('cgml2sjs/index.htm', c, context_instance=RequestContext(request))
 
 def get_geometry(request):
     if request.method == 'POST':
@@ -15,6 +23,4 @@ def get_geometry(request):
     for item in items:
         geom_json.append([item.id, item.geom.coords])
 
-    res = HttpResponse(json.dumps(geom_json), mimetype='application/json')
-    res.set_cookie("csrftoken", value=get_token(request), httponly=False, secure=False)
-    return res
+    return HttpResponse(json.dumps(geom_json), mimetype='application/json')

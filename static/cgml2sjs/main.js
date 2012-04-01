@@ -74,8 +74,7 @@ function draw_geometry(footprint, id) {
 }
 
 function set_up_ajax() {
-    //django csrf
-    $(document).ajaxSend(function(event, xhr, settings) {
+    jQuery(document).ajaxSend(function(event, xhr, settings) {
         function getCookie(name) {
             var cookieValue = null;
             if (document.cookie && document.cookie != '') {
@@ -91,7 +90,6 @@ function set_up_ajax() {
             }
             return cookieValue;
         }
-
         function sameOrigin(url) {
             // url could be relative or scheme relative or absolute
             var host = document.location.host; // host + port
@@ -104,11 +102,10 @@ function set_up_ajax() {
                 // or any other URL that isn't scheme relative or absolute i.e relative.
                 !(/^(\/\/|http:|https:).*/.test(url));
         }
-
         function safeMethod(method) {
             return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
         }
-
+        
         if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
         }
