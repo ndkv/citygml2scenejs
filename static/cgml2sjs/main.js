@@ -1,6 +1,8 @@
 var map;
 var server = "http://localhost:8000/";
 var loaded_geoms = [];
+var drag_start_bounds;
+var explored_area = "";
 
 $(document).ready(function () {
     set_up_ajax();
@@ -11,31 +13,57 @@ $(document).ready(function () {
 function initialize_map() {
     var lat_lng = new google.maps.LatLng(51.9000284, 4.482482);
     var options = {
-        zoom: 16,
+        zoom: 17,
         center: lat_lng,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         disableDoubleClickZoom: true
     };
 
+
     map = new google.maps.Map(document.getElementById("map_canvas"), options);
+
+    google.maps.event.addListener(map, 'dragstart', function () {
+        drag_start_bounds = map.getBounds();
+    });
     google.maps.event.addListener(map, 'dragend', function () {
-        get_geometry(map.getBounds());
+        get_consecutive(map.getBounds(), drag_start_bounds);
     });
     google.maps.event.addListenerOnce(map, 'bounds_changed', function () {
-        get_geometry(map.getBounds());
+        initialize(map.getBounds());
     });
 }
 
-function get_geometry(bounds) {
+function initialize(bounds) {
     var sw = bounds.getSouthWest();
     var ne = bounds.getNorthEast();
-
+    
     data_send = JSON.stringify({'ids': loaded_geoms, "sw_lat": sw.lat(), "sw_lng": sw.lng(), "ne_lat": ne.lat(), "ne_lng": ne.lng()});
 
-    $.post(server + 'get_geometry/', {'data':data_send}, function(data) {
+    get_geometry('initialize/', data_send);
+
+}
+
+function get_consecutive(end_bounds, start_bounds) {
+    var e_sw = end_bounds.getSouthWest();
+    var e_ne = end_bounds.getNorthEast();
+
+    var s_sw = start_bounds.getSouthWest();
+    var s_ne = start_bounds.getNorthEast();
+
+    data_send = JSON.stringify({"end_bounds": [e_sw.lng(),e_sw.lat(), e_ne.lng(), e_ne.lat()], "start_bounds": [s_sw.lng(), s_sw.lat(), s_ne.lng(), s_ne.lat()], "explored_area":explored_area});
+
+    get_geometry('get_geometry/', data_send)
+}
+
+function get_geometry(func, data) {
+    $.post(server + func, {'data':data}, function(data) {
         $.each(data, function(index, building) {
-            loaded_geoms.push(building[0]);
-            draw_geometry(building[1], building[0]);
+            if (building[0] == "explored_area") {
+                explored_area = building[1];
+            } else {
+                loaded_geoms.push(building[0]);
+                draw_geometry(building[1], building[0]);
+            }
         })
     }).error(function(request, error) {
         if (request.status === 0) { console.log('Same origin policy?'); }

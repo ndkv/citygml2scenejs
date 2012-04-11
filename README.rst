@@ -14,6 +14,10 @@ Click on the link below, pan the map and wait a sec or two for the buildings to 
 
 Changelog
 =========
+**2012/4/11**
+
+* Buildings are now fetched by checking whether they intersect the difference between the viewport at the start and end of a  drag event. Blog post is forthcoming.
+
 **2012/3/30**
 
 * Clickable buildings
